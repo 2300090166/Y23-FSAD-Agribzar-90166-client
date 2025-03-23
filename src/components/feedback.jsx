@@ -1,36 +1,49 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../components/Feedback.css';
-  const Feedback = () => {
-    const [formData, setFormData] = useState({
-      name: '',
-      email: '',
-      feedback: '',
-    });
 
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
-    };
+const Feedback = () => {
+  const [formData, setFormData] = useState({
+    customerName: '',
+    email: '',
+    feedback: '',
+  });
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-      try {
-        const response = await axios.post('http://localhost:9097/feedbackservice', formData);
-        alert(response.data.message);
-      } catch (error) {
-        alert('Error submitting feedback.');
-      }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    return (
-     <div className='container'>
-         <div className='head'> Your FeedBack Values</div>
+    try {
+      const response = await axios.post('http://localhost:9099/feedback', formData);
+
+      // Debugging: Log API response
+      console.log("Server Response:", response.data);
+
+      // Ensure response has a message before displaying
+      alert(response.data?.message || "Feedback submitted successfully!");
+      
+      // Reset form after successful submission
+      setFormData({ name: '', email: '', feedback: '' });
+
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+
+      // Improved error handling
+      alert(error.response?.data?.message || 'Error submitting feedback. Please try again.');
+    }
+  };
+
+  return (
+    <div className='container'>
+      <div className='head'>Your Feedback Values</div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
+          name="customerName"
           placeholder="Your Name"
           value={formData.name}
           onChange={handleChange}
@@ -53,8 +66,8 @@ import '../components/Feedback.css';
         ></textarea>
         <button type="submit">Submit Feedback</button>
       </form>
-      </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default Feedback;
+export default Feedback;
