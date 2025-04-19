@@ -22,7 +22,6 @@ body {
   background-attachment: scroll;
 
   /* Background image properties */
-  background-image: url('src/components/images/bg.jpg');
   background-size: cover; /* Ensure the image covers the entire viewport */
   background-repeat: no-repeat; /* Prevent tiling of the image */
   background-position: center; /* Center the image in the viewport */

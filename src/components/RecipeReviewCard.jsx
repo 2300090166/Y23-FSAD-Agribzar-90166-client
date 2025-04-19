@@ -68,12 +68,7 @@ export default function RecipeReviewCard() {
         image='src/components/images/ab3.jpg'
         alt="Agriculture"
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image='src/components/images/ab1.jpg'
-        alt="Agriculture"
-      />
+      
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           
